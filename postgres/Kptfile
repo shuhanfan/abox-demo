@@ -1,0 +1,173 @@
+apiVersion: kpt.dev/v1alpha1
+kind: Kptfile
+metadata:
+  name: crunchy-data-postgres-operator
+openAPI:
+  definitions:
+    io.k8s.cli.setters.name:
+      x-k8s-cli:
+        setter:
+          name: name
+          value: postgres-operator
+      type: string
+      description: application name
+    io.k8s.cli.setters.namespace:
+      x-k8s-cli:
+        setter:
+          name: namespace
+          value: pgo
+      type: string
+    io.k8s.cli.setters.cluster-name:
+      x-k8s-cli:
+        setter:
+          name: cluster-name
+          value: postgres
+      type: string
+      description: PostgreSQL cluster name
+    io.k8s.cli.setters.backrest-storage-class:
+      x-k8s-cli:
+        setter:
+          name: backrest-storage-class
+          value: standard
+      type: string
+      description: the storage class used for storage provisioning(e.g. standard,
+        gold, fast).
+    io.k8s.cli.setters.primary-storage-class:
+      x-k8s-cli:
+        setter:
+          name: primary-storage-class
+          value: standard
+      type: string
+      description: the storage class used for storage provisioning(e.g. standard,
+        gold, fast).
+    io.k8s.cli.setters.replica-storage-class:
+      x-k8s-cli:
+        setter:
+          name: replica-storage-class
+          value: standard
+      type: string
+      description: the storage class used for storage provisioning(e.g. standard,
+        gold, fast).
+    io.k8s.cli.setters.backrest-storage-size:
+      x-k8s-cli:
+        setter:
+          name: backrest-storage-size
+          value: 300M
+      type: string
+      pattern: (\+)?(([0-9]+(\.)?[0-9]*)|(\.[0-9]+))(Ki|Mi|Gi|Ti|Pi|Ei|m|""|K|M|G|T|P|E|((e|E)(\+|-)?(([0-9]+(\.)?[0-9]*)|(\.[0-9]+))))
+      description: the size of the Persistant Volume Claim(PVC) for backrest storage.
+        Must use a Kuberentes resource value, e.g. 20Gi, 20G, 12e6.
+    io.k8s.cli.setters.primary-storage-size:
+      x-k8s-cli:
+        setter:
+          name: primary-storage-size
+          value: 300M
+      type: string
+      pattern: (\+)?(([0-9]+(\.)?[0-9]*)|(\.[0-9]+))(Ki|Mi|Gi|Ti|Pi|Ei|m|""|K|M|G|T|P|E|((e|E)(\+|-)?(([0-9]+(\.)?[0-9]*)|(\.[0-9]+))))
+      description: the size of the Persistant Volume Claim(PVC) for primary storage.
+        Must use a Kuberentes resource value, e.g. 20Gi, 20g, 12e6.
+    io.k8s.cli.setters.replica-storage-size:
+      x-k8s-cli:
+        setter:
+          name: replica-storage-size
+          value: 300M
+      type: string
+      pattern: (\+)?(([0-9]+(\.)?[0-9]*)|(\.[0-9]+))(Ki|Mi|Gi|Ti|Pi|Ei|m|""|K|M|G|T|P|E|((e|E)(\+|-)?(([0-9]+(\.)?[0-9]*)|(\.[0-9]+))))
+      description: the size of the Persistant Volume Claim(PVC) for replica storage.
+        Must use a Kuberentes resource value, e.g. 20Gi, 20g, 12e6.
+    io.k8s.cli.setters.replicas:
+      x-k8s-cli:
+        setter:
+          name: replicas
+          value: "1"
+      type: string
+      pattern: ^[0-9]+$
+      description: number of database replication
+    io.k8s.cli.setters.db-user:
+      x-k8s-cli:
+        setter:
+          name: db-user
+          value: testuser
+      type: string
+      description: database username
+    io.k8s.cli.setters.enable-metrics:
+      x-k8s-cli:
+        setter:
+          name: enable-metrics
+          value: "true"
+      type: string
+      pattern: (true|false)
+      description: set true to set up metrics collection.
+    io.k8s.cli.setters.enable-pgbadger:
+      x-k8s-cli:
+        setter:
+          name: enable-pgbadger
+          value: "true"
+      type: string
+      pattern: (true|false)
+      description: set to true to enable pgBadger capabilities on all newly created
+        clusters.
+    io.k8s.cli.substitutions.collect-secret-name:
+      x-k8s-cli:
+        substitution:
+          name: collect-secret-name
+          pattern: ${cluster-name}-collect-secret
+          values:
+          - marker: ${cluster-name}
+            ref: '#/definitions/io.k8s.cli.setters.cluster-name'
+    io.k8s.cli.substitutions.primaryuser-secret-name:
+      x-k8s-cli:
+        substitution:
+          name: primaryuser-secret-name
+          pattern: ${cluster-name}-primaryuser-secret
+          values:
+          - marker: ${cluster-name}
+            ref: '#/definitions/io.k8s.cli.setters.cluster-name'
+    io.k8s.cli.substitutions.postgres-secret-name:
+      x-k8s-cli:
+        substitution:
+          name: postgres-secret-name
+          pattern: ${cluster-name}-postgres-secret
+          values:
+          - marker: ${cluster-name}
+            ref: '#/definitions/io.k8s.cli.setters.cluster-name'
+    io.k8s.cli.substitutions.testuser-secret-name:
+      x-k8s-cli:
+        substitution:
+          name: testuser-secret-name
+          pattern: ${cluster-name}-testuser-secret
+          values:
+          - marker: ${cluster-name}
+            ref: '#/definitions/io.k8s.cli.setters.cluster-name'
+    io.k8s.cli.substitutions.backrest-repo-config-name:
+      x-k8s-cli:
+        substitution:
+          name: backrest-repo-config-name
+          pattern: ${cluster-name}-backrest-repo-config
+          values:
+          - marker: ${cluster-name}
+            ref: '#/definitions/io.k8s.cli.setters.cluster-name'
+    io.k8s.cli.substitutions.ca-secret-name:
+      x-k8s-cli:
+        substitution:
+          name: ca-secret-name
+          pattern: ${cluster-name}-ca
+          values:
+          - marker: ${cluster-name}
+            ref: '#/definitions/io.k8s.cli.setters.cluster-name'
+    io.k8s.cli.substitutions.server-cert-name:
+      x-k8s-cli:
+        substitution:
+          name: server-cert-name
+          pattern: ${cluster-name}-server-cert
+          values:
+          - marker: ${cluster-name}
+            ref: '#/definitions/io.k8s.cli.setters.cluster-name'
+    io.k8s.cli.substitutions.replication-cert-name:
+      x-k8s-cli:
+        substitution:
+          name: replication-cert-name
+          pattern: ${cluster-name}-replication-cert
+          values:
+          - marker: ${cluster-name}
+            ref: '#/definitions/io.k8s.cli.setters.cluster-name'

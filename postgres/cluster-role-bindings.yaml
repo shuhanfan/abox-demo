@@ -1,0 +1,14 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: pgo-deployer-crb
+  labels:
+    app.kubernetes.io/name: postgres-operator # {"$kpt-set":"name"}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: pgo-deployer-cr
+subjects:
+- kind: ServiceAccount
+  name: pgo-deployer-sa
+  namespace: pgo # {"$kpt-set":"namespace"}
