@@ -4,6 +4,7 @@ metadata:
   name: pgo # {"$kpt-set": "namespace"}
   labels:
     app.kubernetes.io/name: postgres-operator # {"$kpt-set":"name"}
+    anthosbox.gke.io/use-private-registry: "true"
 ---
 apiVersion: v1
 kind: ServiceAccount
@@ -34,7 +35,7 @@ data:
     backrest_aws_s3_verify_tls: "true"
     backrest_port: "2022"
     badger: "false"
-    ccp_image_prefix: "registry.developers.crunchydata.com/crunchydata"
+    ccp_image_prefix: "crunchydata"
     ccp_image_pull_secret: ""
     ccp_image_pull_secret_manifest: ""
     ccp_image_tag: "centos7-12.4-4.4.1"
@@ -74,7 +75,7 @@ data:
     pgo_cluster_admin: "false"
     pgo_disable_eventing: "false"
     pgo_disable_tls: "false"
-    pgo_image_prefix: "registry.developers.crunchydata.com/crunchydata"
+    pgo_image_prefix: "crunchydata"
     pgo_image_pull_secret: ""
     pgo_image_pull_secret_manifest: ""
     pgo_image_tag: "centos7-4.4.1"
@@ -156,7 +157,7 @@ spec:
       restartPolicy: Never
       containers:
       - name: pgo-deploy
-        image: registry.developers.crunchydata.com/crunchydata/pgo-deployer:centos7-4.4.1
+        image: crunchydata/pgo-deployer:centos7-4.4.1
         imagePullPolicy: IfNotPresent
         env:
         - name: DEPLOY_ACTION

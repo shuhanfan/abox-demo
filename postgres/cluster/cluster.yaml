@@ -31,24 +31,24 @@ spec:
     accessmode: ReadWriteOnce
     matchLabels: ""
     name: ""
-    size: 300M # {"$kpt-set": "backrest-storage-size"}
-    storageclass: standard # {"$kpt-set": "backrest-storage-class"}
+    size: 20Gi # {"$kpt-set": "backrest-storage-size"}
+    storageclass: alicloud-disk-efficiency # {"$kpt-set": "backrest-storage-class"}
     storagetype: dynamic
     supplementalgroups: ""
   PrimaryStorage:
     accessmode: ReadWriteOnce
     matchLabels: ""
     name: postgres # {"$kpt-set":"cluster-name"}
-    size: 300M # {"$kpt-set": "primary-storage-size"}
-    storageclass: standard # {"$kpt-set": "primary-storage-class"}
+    size: 20Gi # {"$kpt-set": "primary-storage-size"}
+    storageclass: alicloud-disk-efficiency # {"$kpt-set": "primary-storage-class"}
     storagetype: dynamic
     supplementalgroups: ""
   ReplicaStorage:
     accessmode: ReadWriteOnce
     matchLabels: ""
     name: ""
-    size: 300M # {"$kpt-set": "replica-storage-size"}
-    storageclass: standard # {"$kpt-set": "replica-storage-class"}
+    size: 20Gi # {"$kpt-set": "replica-storage-size"}
+    storageclass: alicloud-disk-efficiency # {"$kpt-set": "replica-storage-class"}
     storagetype: dynamic
     supplementalgroups: ""
   WALStorage:
@@ -69,7 +69,7 @@ spec:
   backrestS3URIStyle: ""
   backrestS3VerifyTLS: ""
   ccpimage: crunchy-postgres-ha
-  ccpimageprefix: registry.developers.crunchydata.com/crunchydata
+  ccpimageprefix: crunchydata
   ccpimagetag: centos7-12.4-4.4.1
   clustername: postgres # {"$kpt-set":"cluster-name"}
   collectSecretName: postgres-collect-secret # {"$kpt-set":"collect-secret-name"}
@@ -85,7 +85,7 @@ spec:
     resources:
       memory: 24Mi
   pgbadgerport: "10000"
-  pgoimageprefix: registry.developers.crunchydata.com/crunchydata
+  pgoimageprefix: crunchydata
   podAntiAffinity:
     default: preferred
     pgBackRest: preferred

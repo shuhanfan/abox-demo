@@ -103,6 +103,7 @@ openAPI:
         setter:
           name: enable-pgbadger
           value: "true"
+          isSet: true
       type: string
       pattern: (true|false)
       description: set to true to enable pgBadger capabilities on all newly created
