@@ -246,6 +246,32 @@ WARNING: Are you sure? (yes/no): yes
 restore performed on <cluster name> to ... opts=--type=time pitr-target=2020-06-15 14:33:30.000000+08
 workflow id 847792b1-a9d6-4f86-afa7-be0eb3e66815
 ```
+## Performance and Monitoring
+
+The following components can be used to understand how PostgreSQL containers are performing over time using tools such as pgBadger, Grafana and Prometheus.
+
+### Crunchy pgBadger
+The Crunchy pgBadger provides a tool that parses PostgreSQL logs and generate an in-depth statistical report. Crunchy pgBadger reports includes:
+* Connections
+* Sessions
+* Checkpoints
+* Vacuum
+* Locks
+* Queries
+
+#### Setup
+Enable pgbadger after getting the PostgreSQL kpt package:
+```shell
+$ kpt cfg set <postgres-dir> enable-pgbadger true
+set 2 fields
+```
+Forward the port of service postgres to localhost:10000 when the PostgreSQL is deployed successfully.
+```shell
+$ kubectl -n <namespace> port-forward svc/postgres 10000:10000
+Forwarding from 127.0.0.1:10000 -> 10000
+Forwarding from [::1]:10000 -> 10000
+```
+Access pgBadger UI by http://localhost:10000.
 
 ## Uninstallation
 
