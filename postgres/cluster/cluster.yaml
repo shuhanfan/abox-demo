@@ -7,7 +7,7 @@ metadata:
     autofail: "true"
     crunchy-pgbadger: "true" # {"$kpt-set":"enable-pgbadger"}
     crunchy-pgha-scope: postgres # {"$kpt-set":"cluster-name"}
-    # crunchy_collect: "true" # {"$kpt-set":"enable-metrics"}
+    crunchy_collect: "false" # {"$kpt-set":"enable-metrics"}
     crunchy-postgres-exporter: "true"
     deployment-name: postgres # {"$kpt-set":"cluster-name"}
     name: postgres # {"$kpt-set":"cluster-name"}
@@ -111,7 +111,7 @@ spec:
   tlsOnly: true
   user: testuser # {"$kpt-set":"db-user"}
   userlabels:
-    # crunchy_collect: "strue" # {"$kpt-set":"enable-metrics"}
+    crunchy_collect: "false" # {"$kpt-set":"enable-metrics"}
     crunchy-pgbadger: "true" # {"$kpt-set":"enable-pgbadger"}
     crunchy-postgres-exporter: "true"
     pg-pod-anti-affinity: ""
