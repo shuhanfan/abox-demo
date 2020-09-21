@@ -7,8 +7,8 @@ metadata:
     autofail: "true"
     crunchy-pgbadger: "true" # {"$kpt-set":"enable-pgbadger"}
     crunchy-pgha-scope: postgres # {"$kpt-set":"cluster-name"}
-    crunchy_collect: "true" # {"$kpt-set":"enable-metrics"}
-    crunchy-postgres-exporter: "true" # {"$kpt-set":"enable-metrics"}
+    crunchy_collect: "false" # {"$kpt-set":"enable-metrics"}
+    crunchy-postgres-exporter: "false" # {"$kpt-set":"enable-metrics"}
     deployment-name: postgres # {"$kpt-set":"cluster-name"}
     name: postgres # {"$kpt-set":"cluster-name"}
     pg-cluster: postgres # {"$kpt-set":"cluster-name"}
@@ -108,12 +108,12 @@ spec:
     caSecret: postgres-ca # {"$kpt-set":"ca-secret-name"}
     replicationTLSSecret: postgres-replication-cert # {"$kpt-set":"replication-cert-name"}
     tlsSecret: postgres-server-cert # {"$kpt-set":"server-cert-name"}
-  tlsOnly: true
+  tlsOnly: false
   user: testuser # {"$kpt-set":"db-user"}
   userlabels:
-    crunchy_collect: "true" # {"$kpt-set":"enable-metrics"}
+    crunchy_collect: "false" # {"$kpt-set":"enable-metrics"}
     crunchy-pgbadger: "true" # {"$kpt-set":"enable-pgbadger"}
-    crunchy-postgres-exporter: "true" # {"$kpt-set":"enable-metrics"}
+    crunchy-postgres-exporter: "false" # {"$kpt-set":"enable-metrics"}
     pg-pod-anti-affinity: ""
     pgo-version: 4.4.1
     pgouser: admin
