@@ -1,0 +1,40 @@
+apiVersion: app.k8s.io/v1beta1
+kind: Application
+metadata:
+  name: postgres-operator # {"$kpt-set":"name"}
+  namespace: pgo # {"$kpt-set":"namespace"}
+  labels:
+    app.kubernetes.io/name: postgres-operator # {"$kpt-set":"name"}
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: postgres-operator # {"$kpt-set":"name"}
+  componentKinds:
+  - group: v1
+    kind: Namespace
+  - group: v1
+    kind: ServiceAccount
+  - group: v1
+    kind: ConfigMap
+  - group: v1
+    kind: Secret
+  - group: rbac.authorization.k8s.io/v1
+    kind: ClusterRole
+  - group: rbac.authorization.k8s.io/v1
+    kind: ClusterRoleBinding
+  - group: batch/v1
+    kind: Job
+  - group: apps/v1
+    kind: Deployment
+  - group: crunchydata.com/v1
+    kind: Pgcluster
+  - group: crunchydata.com/v1
+    kind: Pgtask
+  descriptor:
+    type: "Crunchy Data Postgres Operator"
+    links:
+    - description: Homepage
+      url: "https://github.com/CrunchyData/postgres-operator"
+    version: "4.4.1"
+    description: "The Crunchy PostgreSQL Operator automates and simplifies deploying
+      and managing open source PostgreSQL clusters on Kubernetes."

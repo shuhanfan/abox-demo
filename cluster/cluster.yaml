@@ -1,0 +1,122 @@
+apiVersion: crunchydata.com/v1
+kind: Pgcluster
+metadata:
+  annotations:
+    current-primary: postgres # {"$kpt-set":"cluster-name"}
+  labels:
+    autofail: "true"
+    crunchy-pgbadger: "true" # {"$kpt-set":"enable-pgbadger"}
+    crunchy-pgha-scope: postgres # {"$kpt-set":"cluster-name"}
+    crunchy_collect: "true" # {"$kpt-set":"enable-metrics"}
+    crunchy-postgres-exporter: "true" # {"$kpt-set":"enable-metrics"}
+    deployment-name: postgres # {"$kpt-set":"cluster-name"}
+    name: postgres # {"$kpt-set":"cluster-name"}
+    pg-cluster: postgres # {"$kpt-set":"cluster-name"}
+    pg-pod-anti-affinity: ""
+    pgo-backrest: "true"
+    pgo-version: 4.4.1
+    pgouser: admin
+    app.kubernetes.io/name: postgres-operator # {"$kpt-set":"name"}
+  name: postgres # {"$kpt-set":"cluster-name"}
+  namespace: pgo # {"$kpt-set":"namespace"}
+spec:
+  ArchiveStorage:
+    accessmode: ""
+    matchLabels: ""
+    name: ""
+    size: ""
+    storageclass: ""
+    storagetype: ""
+    supplementalgroups: ""
+  BackrestStorage:
+    accessmode: ReadWriteOnce
+    matchLabels: ""
+    name: ""
+    size: 300M # {"$kpt-set": "backrest-storage-size"}
+    storageclass: standard # {"$kpt-set": "backrest-storage-class"}
+    storagetype: dynamic
+    supplementalgroups: ""
+  PrimaryStorage:
+    accessmode: ReadWriteOnce
+    matchLabels: ""
+    name: postgres # {"$kpt-set":"cluster-name"}
+    size: 300M # {"$kpt-set": "primary-storage-size"}
+    storageclass: standard # {"$kpt-set": "primary-storage-class"}
+    storagetype: dynamic
+    supplementalgroups: ""
+  ReplicaStorage:
+    accessmode: ReadWriteOnce
+    matchLabels: ""
+    name: ""
+    size: 300M # {"$kpt-set": "replica-storage-size"}
+    storageclass: standard # {"$kpt-set": "replica-storage-class"}
+    storagetype: dynamic
+    supplementalgroups: ""
+  WALStorage:
+    accessmode: ""
+    matchLabels: ""
+    name: ""
+    size: ""
+    storageclass: ""
+    storagetype: ""
+    supplementalgroups: ""
+  backrestLimits: {}
+  backrestRepoPath: ""
+  backrestResources:
+    memory: 48Mi
+  backrestS3Bucket: ""
+  backrestS3Endpoint: ""
+  backrestS3Region: ""
+  backrestS3URIStyle: ""
+  backrestS3VerifyTLS: ""
+  ccpimage: crunchy-postgres-ha
+  ccpimageprefix: crunchydata
+  ccpimagetag: centos7-12.4-4.4.1
+  clustername: postgres # {"$kpt-set":"cluster-name"}
+  collectSecretName: postgres-collect-secret # {"$kpt-set":"collect-secret-name"}
+  customconfig: ""
+  database: postgres # {"$kpt-set":"cluster-name"}
+  exporterport: "9187"
+  limits: {}
+  name: postgres # {"$kpt-set":"cluster-name"}
+  namespace: pgo # {"$kpt-set":"namespace"}
+  pgBouncer:
+    limits: {}
+    replicas: 1
+    resources:
+      memory: 24Mi
+  pgbadgerport: "10000"
+  pgoimageprefix: crunchydata
+  podAntiAffinity:
+    default: preferred
+    pgBackRest: preferred
+    pgBouncer: preferred
+  policies: ""
+  port: "5432"
+  primaryhost: postgres # {"$kpt-set":"cluster-name"}
+  primarysecretname: postgres-primaryuser-secret # {"$kpt-set":"primaryuser-secret-name"}
+  replicas: "1" # {"$kpt-set":"replicas"}
+  resources:
+    memory: 512Mi
+  rootsecretname: postgres-postgres-secret # {"$kpt-set":"postgres-secret-name"}
+  secretfrom: ""
+  shutdown: false
+  standby: false
+  syncReplication: null
+  tablespaceMounts: {}
+  tls:
+    caSecret: postgres-ca # {"$kpt-set":"ca-secret-name"}
+    replicationTLSSecret: postgres-replication-cert # {"$kpt-set":"replication-cert-name"}
+    tlsSecret: postgres-server-cert # {"$kpt-set":"server-cert-name"}
+  tlsOnly: true
+  user: testuser # {"$kpt-set":"db-user"}
+  userlabels:
+    crunchy_collect: "true" # {"$kpt-set":"enable-metrics"}
+    crunchy-pgbadger: "true" # {"$kpt-set":"enable-pgbadger"}
+    crunchy-postgres-exporter: "true" # {"$kpt-set":"enable-metrics"}
+    pg-pod-anti-affinity: ""
+    pgo-version: 4.4.1
+    pgouser: admin
+    pgo-backrest: "true"
+    app.kubernetes.io/name: postgres-operator # {"$kpt-set":"name"}
+  usersecretname: postgres-testuser-secret # {"$kpt-set":"testuser-secret-name"}
